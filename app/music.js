@@ -87,9 +87,9 @@ function setupControl() {
     });
 
     at.playerStateChanged.on(e => {
-        console.log("stopped", e.stopped)
-        playing = !e.stopped;
-        if (e.stopped) {
+        console.log("stopped", e.stopped, e.state)
+        playing = e.state == 1;
+        if (!playing) {
             console.log("Stopped")
         } else {
             console.log("Playing")
