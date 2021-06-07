@@ -9,13 +9,16 @@ dist/bundle.js: app/music.js | dist
 	browserify app/music.js > $@_
 	mv $@_ $@
 
-.build.done: dist/bundle.js dist/alphaTab.min.js dist/alphaTab.css dist/font dist/soundfont
+.build.done: dist/bundle.js dist/alphaTab.min.js dist/alphaTab.css dist/font dist/soundfont dist/la-cucaracha.xml
 	touch $@
+
+dist/la-cucaracha.xml: data/la-cucaracha.xml | dist
+	cp $< $@
 
 dist/alphaTab.min.js: node_modules/@coderline/alphatab/dist/alphaTab.min.js | dist
 	cp $< $@
 
-dist/%: node_modules/@coderline/alphatab/dist/%
+dist/%: node_modules/@coderline/alphatab/dist/% | dist
 	cp -r $< $@
 
 dist/alphaTab.css: css/alphaTab.css | dist

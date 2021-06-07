@@ -17,6 +17,7 @@ function setupControl() {
     const viewPort = document.getElementById('at-viewport');
     console.log("viewPort", viewPort);
     at = new alphaTab.AlphaTabApi(atDiv, {
+        file: "dist/la-cucaracha.xml",
         player: {
             scrollOffsetx: -10,
             enablePlayer: true,
