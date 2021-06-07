@@ -22,7 +22,7 @@
 
 .at-wrap {
     position: relative;
-    width: 80%;
+    width: 98%;
     height: 80vh;
     margin: 0 auto;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -69,10 +69,10 @@
     overflow-y: auto;
     position: absolute;
     top: 0;
-    left: 70px;
+    left: 5px;
     right: 0;
     bottom: 0;
-    padding-right: 20px;
+    padding-right: 5px;
 }
 
 .at-song-title {
