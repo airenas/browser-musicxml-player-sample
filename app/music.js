@@ -3,6 +3,7 @@ var at;
 var previousTime;
 var playPauseButton;
 var playing;
+const fontName = 'Arial';
 
 function setMusicXML(file) {
     const reader = new FileReader();
@@ -23,6 +24,16 @@ function setupControl() {
             enablePlayer: true,
             soundFont: "dist/soundfont/sonivox.sf2",
             scrollElement: viewPort
+        },
+        display: {
+            resources: {
+                titleFont: 'normal 32px '+fontName+', serif',
+                subTitleFont: 'normal 20px '+fontName+', serif',
+                wordsFont: 'normal 15px '+fontName+', serif',
+                effectFont: 'italic 12px '+fontName+', serif',
+                fingeringFont: 'normal 14px '+fontName+', serif',
+                markerFont: 'bold 14px '+fontName+', serif',
+            }
         }
     });
     at.error.on(function (e) {
