@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <title>Music XML player demo</title>
+    <script src="dist/alphaTab.min.js"></script>
+    <link rel="stylesheet" href="dist/alphaTab.css" />
+</head>
+
+<body>
+    <div style="border:solid 1px green;;margin: 5px;padding: 5px;">
+        <span>Select music XML file:</span>
+        <input id="input" type="file">
+        <button id="play">Play</button>
+        <button id="stop">Stop</button>
+    </div>
+
+    <div style="border:solid 1px green;;margin: 5px;padding: 5px;">
+        <div class="at-wrap">
+            <div class="at-content">
+                <div class="at-viewport" id="at-viewport">
+                    <div id="alphaTabS" class="at-canvas"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="dist/bundle.js"></script>
+</body>
+
+</html>
