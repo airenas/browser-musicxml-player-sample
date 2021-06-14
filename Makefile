@@ -9,7 +9,7 @@ dist/bundle.js: app/music.js | dist
 	browserify app/music.js > $@_
 	mv $@_ $@
 
-.build.done: dist/bundle.js dist/alphaTab.min.js dist/alphaTab.css dist/font dist/soundfont dist/la-cucaracha.xml
+.build.done: dist/bundle.js dist/alphaTab.js dist/alphaTab.min.js dist/alphaTab.css dist/font dist/soundfont dist/la-cucaracha.xml
 	touch $@
 
 dist/la-cucaracha.xml: data/la-cucaracha.xml | dist
