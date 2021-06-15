@@ -2,35 +2,26 @@
 -include Makefile.options
 deploy_dir?=
 #############################################################################
-dist:
-	mkdir -p $@
-
-dist/bundle.js: app/music.js | dist
-	browserify app/music.js > $@_
-	mv $@_ $@
-
-.build.done: dist/bundle.js dist/alphaTab.js dist/alphaTab.min.js dist/alphaTab.css dist/font dist/soundfont dist/la-cucaracha.xml
+.build.done: public/at/LICENSE.alphaTab public/at/alphaTab.min.js public/at/font \
+	public/at/soundfont
 	touch $@
 
-dist/la-cucaracha.xml: data/la-cucaracha.xml | dist
+public/at/alphaTab.min.js: node_modules/@coderline/alphatab/dist/alphaTab.min.js 
 	cp $< $@
-
-dist/alphaTab.min.js: node_modules/@coderline/alphatab/dist/alphaTab.min.js | dist
-	cp $< $@
-
-dist/%: node_modules/@coderline/alphatab/dist/% | dist
+public/at/LICENSE.alphaTab: node_modules/@coderline/alphatab/LICENSE
+	cp $< $@	
+public/at/%: node_modules/@coderline/alphatab/dist/% 
 	cp -r $< $@
 
-dist/alphaTab.css: css/alphaTab.css | dist
-	cp $< $@
-
-compile: .build.done | dist
+compile: .build.done 
+	npm run build
 #############################################################################
-serve:
-	npm start
+serve: .build.done 
+	npm run serve
 
 prepare:
 	npm install
+
 #############################################################################
 $(deploy_dir)/dist:
 	mkdir -p $@
