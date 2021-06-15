@@ -23,12 +23,13 @@ prepare:
 	npm install
 
 #############################################################################
-$(deploy_dir)/dist:
-	mkdir -p $@
+clean-deploy: 
+	rm -rf $(deploy_dir)/at $(deploy_dir)/css $(deploy_dir)/js
+	rm -f $(deploy_dir)/index.html $(deploy_dir)/favicon.icoma
 
-copy_deploy: | $(deploy_dir)/dist
-	cp index.html $(deploy_dir)/
-	cp -r dist/* $(deploy_dir)/dist/
+
+copy-deploy: clean-deploy
+	cp -r dist/* $(deploy_dir)/
 #############################################################################
 clean: 
 	rm -rf dist

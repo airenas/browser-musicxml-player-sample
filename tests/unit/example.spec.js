@@ -1,13 +1,12 @@
 import { expect } from 'chai';
 import { shallowMount } from '@vue/test-utils';
-import HelloWorld from '@/components/HelloWorld.vue';
+import FileInput from '@/components/FileInput.vue';
 
-describe('HelloWorld.vue', () => {
+describe('FileInput.vue', () => {
   it('renders props.msg when passed', () => {
-    const msg = 'new message';
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg },
+    const wrapper = shallowMount(FileInput, {
+      propsData: { file: null, dragClass: '' },
     });
-    expect(wrapper.text()).to.include(msg);
+    expect(wrapper.text()).to.include('Select music XML file');
   });
 });

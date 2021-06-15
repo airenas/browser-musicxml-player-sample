@@ -61,7 +61,7 @@ export default {
   methods: {
     setupControl() {
       const updateControls = this.updateControls;
-      const fontName = "Ariel";
+      const fontName = "Roboto";
       const atDiv = document.getElementById("at-main");
       console.log(atDiv);
       const viewPort = document.getElementById("at-viewport");
@@ -154,12 +154,16 @@ export default {
       this.canStop = this.playing;
     },
     setMusicXML(file) {
-      const reader = new FileReader();
-      const at = this.at;
-      reader.onload = function (data) {
-        at.load(data.target.result, [0]);
-      };
-      reader.readAsArrayBuffer(file);
+      if (file) {
+        const reader = new FileReader();
+        const at = this.at;
+        reader.onload = function (data) {
+          at.load(data.target.result, [0]);
+        };
+        reader.readAsArrayBuffer(file);
+      } else {
+        this.at.load(null, [0]);
+      }
     },
   },
 };
