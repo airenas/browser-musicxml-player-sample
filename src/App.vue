@@ -1,30 +1,30 @@
 <template>
-  <div id="app">
-    <FileInput/>
-    <MusicXMLPlayer/>
-  </div>
+  <v-app>
+    <v-main>
+      <FileInput/>
+      <MusicXMLPlayer />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import FileInput from './components/FileInput'
-import MusicXMLPlayer from './components/MusicXMLPlayer'
+import FileInput from './components/FileInput.vue';
+import MusicXMLPlayer from './components/MusicXMLPlayer.vue';
 
 export default {
   name: 'App',
+
   components: {
-    FileInput,
     MusicXMLPlayer,
-  }
-}
+    FileInput,
+  },
+
+  data: () => ({
+    //
+  }),
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="sass" scoped>
+
 </style>

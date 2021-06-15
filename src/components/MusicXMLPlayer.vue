@@ -1,6 +1,6 @@
 <template>
-  <div class="player">
-    <div style="border: solid 1px green; margin: 5px; padding: 5px">
+  <v-card>
+    <div class="simple">
       <div class="at-wrap">
         <div class="at-content">
           <div class="at-viewport" id="at-viewport">
@@ -9,13 +9,24 @@
         </div>
       </div>
       <div>
-        <button v-on:click="play" :disabled="!canPlay">
-          {{ playOrPause }}
-        </button>
-        <button v-on:click="stop" :disabled="!canStop">Stop</button>
+        <v-btn
+          color="primary"
+          elevation="2"
+          v-on:click="play"
+          :disabled="!canPlay"
+        >
+          {{ playOrPause }}</v-btn
+        >
+        <v-btn
+          color="primary"
+          elevation="2"
+          v-on:click="stop"
+          :disabled="!canStop"
+          >Stop</v-btn
+        >
       </div>
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -29,17 +40,19 @@ export default {
       canPlay: false,
       canStop: false,
       playing: false,
+      loading: false,
       file: {
         type: File,
       },
       at: null,
+      publicPath: process.env.BASE_URL,
     };
   },
   created() {
     bus.$on("fileChange", (data) => {
       console.log("File change");
       this.file = data;
-      this.setMusicXML(this.file)
+      this.setMusicXML(this.file);
     });
   },
   mounted() {
@@ -54,11 +67,11 @@ export default {
       const viewPort = document.getElementById("at-viewport");
       console.log("viewPort", viewPort);
       const at = new alphaTab.AlphaTabApi(atDiv, {
-        file: "static/la-cucaracha.xml",
+        file: this.publicPath + "la-cucaracha.xml",
         player: {
           scrollOffsetx: -10,
           enablePlayer: true,
-          soundFont: "static/soundfont/sonivox.sf2",
+          soundFont: this.publicPath + "at/soundfont/sonivox.sf2",
           scrollElement: viewPort,
         },
         display: {
@@ -77,9 +90,11 @@ export default {
       });
 
       const trackItems = [];
-      at.renderStarted.on(function (isResize) {
+      at.renderStarted.on((isResize) => {
+        this.loading = true;
+        updateControls();
         if (!isResize) {
-          console.log("loading");
+          console.log("started loading");
         }
         const tracks = new Map();
         at.tracks.forEach(function (t) {
@@ -97,8 +112,9 @@ export default {
 
       at.soundFontLoad.on(function (args) {});
       at.soundFontLoaded.on(function () {});
-      at.renderFinished.on(function () {
+      at.renderFinished.on(() => {
         console.log("render finish");
+        this.loading = false;
         updateControls();
       });
       at.scoreLoaded.on(function (score) {
@@ -134,7 +150,7 @@ export default {
     },
     updateControls() {
       this.playOrPause = !this.playing ? "Play" : "Pause";
-      this.canPlay = this.at && this.at.isReadyForPlayback;
+      this.canPlay = this.at && this.at.isReadyForPlayback && !this.loading;
       this.canStop = this.playing;
     },
     setMusicXML(file) {
@@ -150,5 +166,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="sass" scoped >
+@import '~vuetify/src/styles/main.sass'
+
+.simple
+  border: solid 1px map-get($indigo, base)
+  margin: 5px
+  padding: 5px
 </style>
